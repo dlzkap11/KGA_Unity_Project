@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -26,10 +29,13 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody rb;
 
     private int currentPatrolIndex;
+    [SerializeField]
+    float attackcool = 2.0f;
     private bool isWaiting;
     private float waitTimer;
-    [SerializeField]private EnemyState currentState;
 
+    [SerializeField]private EnemyState currentState;
+    [SerializeField] private bool isAttack;
 
     private void Awake()
     {
@@ -44,6 +50,8 @@ public class EnemyMovement : MonoBehaviour
     
     void Update()
     {
+
+        
         float distancePlayer = Vector3.Distance(player.position, transform.position);
         if(distancePlayer <= detectRange && distancePlayer > 1.0f)
         {
@@ -58,7 +66,19 @@ public class EnemyMovement : MonoBehaviour
         {
             currentState = EnemyState.Patrol;
         }
+        
+        if (isAttack)
+        {
 
+            waitTimer += Time.deltaTime;
+            if (waitTimer >= attackcool)
+            {
+
+                isAttack = false;
+                waitTimer = 0;
+            }
+            return;
+        }
         switch (currentState)
         {
             case EnemyState.Patrol:
@@ -75,6 +95,7 @@ public class EnemyMovement : MonoBehaviour
 
         Debug.Log($"현재 상태 :{currentState}");
     }
+    
 
     private void Patrol()
     {
@@ -139,27 +160,21 @@ public class EnemyMovement : MonoBehaviour
         // 이동하는 애니메이션 출력
         animator.SetFloat("MoveSpeed", 1f);
     }
-    private bool isAttack;
+    
     private void Attack()
     {
-        isAttack = true;
-        float attackcool = 3.0f;
+        
+        
         // 공격모션 출력
-        animator.SetTrigger("IsAttack");
+
         // 공격모션 타이밍에 맞춰서 플레이어 넉백
+        isAttack = true;
+        animator.SetTrigger("IsAttack");
         rb.AddExplosionForce(7f, transform.position, 3.0f, 0f, ForceMode.Impulse);
-        if (isAttack)
-        {
-            waitTimer += Time.deltaTime;
-            if (waitTimer >= attackcool)
-            {
-                isAttack = false;
-                waitTimer = 0;
-            }
-        }
         
-        
-        
+
+
+
     }
 
 
