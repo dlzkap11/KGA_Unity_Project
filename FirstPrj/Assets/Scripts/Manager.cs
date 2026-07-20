@@ -19,6 +19,7 @@ public class Manager : MonoBehaviour
             // Ray가 콜라이더에 부딪혔는지 확인
             if (Physics.Raycast(ray, out hit))
             {
+                //Physics.Raycast(transform.position, Vector3.forward, out RaycastHit hit, 10f, targetLayer)
                 if (hit.collider.gameObject.name != "Boss")
                     return;
                 color = hit.collider.GetComponent<Renderer>().material.color;

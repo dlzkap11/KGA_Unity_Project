@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "UIA",
+    "maps": [
+        {
+            "name": "New action map",
+            "id": "06cd6125-491d-4efb-9cc1-e17ccdd7a566",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "1cfac53d-8e06-4348-ae96-ac8045f640b7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9a476b92-f661-47e8-a3d2-9c171cf4d752",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
