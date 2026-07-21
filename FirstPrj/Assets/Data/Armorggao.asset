@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d0643c36839514e8c0804e7fc1b2d3, type: 3}
   m_Name: Armorggao
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  ItemId: 0
-  ItemName: 
-  itemType: 0
-  ItemIcon: {fileID: 0}
-  ItemValue: 0
-  ItemPrice: 0
-  ItemDesc: 
+  ItemId: 1003
+  ItemName: "\uC544\uBA38\uAE4C\uC624"
+  itemType: 1
+  ItemIcon: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  ItemValue: 7
+  ItemPrice: 100
+  ItemDesc: "\uC544\uBA38\uAE4C\uC624"

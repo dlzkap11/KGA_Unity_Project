@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85d0643c36839514e8c0804e7fc1b2d3, type: 3}
-  m_Name: Potion
+  m_Name: "\uD669\uAE08 \uD22C\uAD6C"
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  ItemId: 1001
-  ItemName: "\uBE68\uAC04 \uD3EC\uC158"
-  itemType: 2
-  ItemIcon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
-  ItemValue: 550
-  ItemPrice: 100
-  ItemDesc: "\uCCB4\uB825\uC744 50 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+  ItemId: 6
+  ItemName: "\uD669\uAE08 \uD22C\uAD6C"
+  itemType: 1
+  ItemIcon: {fileID: 0}
+  ItemValue: 0
+  ItemPrice: 0
+  ItemDesc: "\uD669\uAE08\uC73C\uB85C \uB9CC\uB4E0 \uD22C\uAD6C\uC785\uB2C8\uB2E4"

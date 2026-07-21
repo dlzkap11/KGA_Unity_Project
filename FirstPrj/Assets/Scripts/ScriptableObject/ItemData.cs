@@ -4,7 +4,7 @@ using UnityEngine;
 //아이템 타입 Define에서 관리하기
 public enum ItemType
 {
-    Weaphon,
+    Weapon,
     Armor,
     Potion,
 }

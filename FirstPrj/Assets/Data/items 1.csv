@@ -1,0 +1,9 @@
+itemId,displayName,itemType,value,description
+1,작은 포션,Potion,20,체력을 조금 회복합니다
+2,큰 포션,Potion,50,체력을 크게 회복합니다
+3,철검,Weapon,15,기본적인 검입니다
+4,은검,Weapon,25,언데드에게 추가 피해를 주는 검입니다
+5,나무 방패,Weapon,5,가벼운 나무 방패입니다
+6,황금 투구,Armor,0,황금으로 만든 투구입니다
+7,은 투구,Armor,0,은으로 만든 투구입니다
+8,화염 주문서,Weapon,30,화염 마법을 시전합니다
