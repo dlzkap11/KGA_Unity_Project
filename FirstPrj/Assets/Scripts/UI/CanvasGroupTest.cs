@@ -3,6 +3,7 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using DG.Tweening;
+using DG.Tweening.Plugins.Options;
 
 
 public class CanvasGroupTest : MonoBehaviour
@@ -11,25 +12,32 @@ public class CanvasGroupTest : MonoBehaviour
     [SerializeField] private float duration;
 
     private Coroutine currentCoroutine;
-    
+    private bool isFade;
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            FadeOut();
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            FadeIn();
+            
+            group.DOKill();
+            isFade = !isFade;
+            if (isFade)
+            {
+                FadeOut();
+            }
+            else
+            {
+                FadeIn();
+            }
         }
     }
 
     private void FadeOut()
     {
+        
         group.interactable = false;
         group.blocksRaycasts = false;
         group.DOFade(0f, duration);
-
+        
         /*
         if(currentCoroutine != null)
         {
@@ -37,15 +45,20 @@ public class CanvasGroupTest : MonoBehaviour
         }
         currentCoroutine = StartCoroutine(FadeOutRoutine());
         */
+        
     }
 
     private void FadeIn()
     {
 
         
-        group.DOFade(1f, duration);
-        group.interactable = true;
-        group.blocksRaycasts = true;
+        group.DOFade(1f, duration).OnComplete(() => {
+
+            Debug.Log("페이드인 완");
+            group.interactable = true;
+            group.blocksRaycasts = true;
+        });
+        
         /*
         if (currentCoroutine != null)
         {
@@ -53,6 +66,7 @@ public class CanvasGroupTest : MonoBehaviour
         }
         currentCoroutine = StartCoroutine(FadeInRoutine());
         */
+        
     }
 
     private IEnumerator FadeOutRoutine()
