@@ -2,6 +2,8 @@ using Mono.Cecil;
 using System.Collections;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using DG.Tweening;
+
 
 public class CanvasGroupTest : MonoBehaviour
 {
@@ -24,20 +26,33 @@ public class CanvasGroupTest : MonoBehaviour
 
     private void FadeOut()
     {
+        group.interactable = false;
+        group.blocksRaycasts = false;
+        group.DOFade(0f, duration);
+
+        /*
         if(currentCoroutine != null)
         {
             StopCoroutine(currentCoroutine);
         }
         currentCoroutine = StartCoroutine(FadeOutRoutine());
+        */
     }
 
     private void FadeIn()
     {
+
+        
+        group.DOFade(1f, duration);
+        group.interactable = true;
+        group.blocksRaycasts = true;
+        /*
         if (currentCoroutine != null)
         {
             StopCoroutine(currentCoroutine);
         }
         currentCoroutine = StartCoroutine(FadeInRoutine());
+        */
     }
 
     private IEnumerator FadeOutRoutine()
