@@ -59,8 +59,8 @@ public class Player : MonoBehaviour
 
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
-        Vector3 moveVector = new Vector3(x, 0, z).normalized * speed;
-        rb.MovePosition(rb.position + moveVector * Time.deltaTime);
+        Vector3 moveVector = new Vector3(x, 0, z).normalized ;
+        rb.MovePosition(rb.position + moveVector * speed * Time.deltaTime);
 
         if (Input.GetButtonDown("Jump"))
             rb.AddForce(new Vector3(0f, 3f, 0f), ForceMode.Impulse);

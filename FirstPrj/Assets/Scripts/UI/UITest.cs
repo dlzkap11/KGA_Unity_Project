@@ -11,6 +11,7 @@ public class UITest : MonoBehaviour
     [SerializeField] private Toggle toggle;
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private TMP_Dropdown dropDown;
+    [SerializeField] private Button quitButton;
 
     private int score;
     private int hp;
@@ -26,12 +27,14 @@ public class UITest : MonoBehaviour
     {
         hpSlider.onValueChanged.AddListener(SetHealth);
         restartButton.onClick.AddListener(ResetUI);
+        quitButton.onClick.AddListener(SceneManagerEx.Instance.LoadTitleScene);
     }
 
     private void OnDisable()
     {
         hpSlider.onValueChanged.RemoveAllListeners();
         restartButton.onClick.RemoveAllListeners();
+        quitButton.onClick.RemoveAllListeners();
     }
 
     private void Update()
