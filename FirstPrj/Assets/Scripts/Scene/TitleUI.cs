@@ -18,9 +18,4 @@ public class TitleUI : MonoBehaviour
         startButton.onClick.RemoveAllListeners();
         quitButton.onClick.RemoveAllListeners();
     }
-
-    void Update()
-    {
-        
-    }
 }
