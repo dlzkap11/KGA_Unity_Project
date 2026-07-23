@@ -40,6 +40,7 @@ public class Goal : MonoBehaviour
                 PlayerPrefs.Save();
             }
             Debug.Log("승리!");
+            //ts
         }
             
 
