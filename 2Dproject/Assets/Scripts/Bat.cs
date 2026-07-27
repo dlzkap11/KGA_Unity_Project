@@ -10,7 +10,7 @@ public class Bat : MonoBehaviour
     }
 
 
-    //private static readonly MoveHash = Animator.StringToHash("Move");
+    private static readonly int MoveHash = Animator.StringToHash("Move");
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Transform player;
     [SerializeField] private float detectRange;
@@ -49,7 +49,7 @@ public class Bat : MonoBehaviour
 
     void OnIdle()
     {
-        
+        animator.SetFloat("OnMove", 0f);
     }
 
     void OnMove()
@@ -63,7 +63,7 @@ public class Bat : MonoBehaviour
         if (direction != 0)
             spriteRenderer.flipX = direction < 0;
 
-        animator.Play("Move");
-        //animator.SetFloat("OnMove", 0.1f);
+        //animator.Play(MoveHash);
+        animator.SetFloat("OnMove", 1f);
     }
 }
