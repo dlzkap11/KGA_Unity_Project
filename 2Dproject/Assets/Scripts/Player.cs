@@ -70,17 +70,12 @@ public class Player : MonoBehaviour
         if (_inputVec.x > 0)
         {
             _animator.Play("Move");
-            //transform.localScale = new Vector3(1f, 1f, 1f); // x축 반전
             _sprite.flipX = false;
-            //FlipChildren(_sprite.flipX);
         }
         else if (_inputVec.x < 0)
         {
             _animator.Play("Move");
-
-            //transform.localScale = new Vector3(-1f, 1f, 1f); // x축 반전
             _sprite.flipX = true;
-            //FlipChildren(_sprite.flipX);
         }
         else
         {

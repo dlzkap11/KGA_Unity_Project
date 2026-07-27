@@ -25,7 +25,11 @@ public class Fire : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
             return;
+
+        if(collision.CompareTag("Enemy"))
+            Destroy(collision.gameObject);
         Destroy(gameObject);
+
     }
 
     void Update()
