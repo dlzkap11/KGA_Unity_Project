@@ -15,11 +15,20 @@ public class Bat : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private float detectRange;
     [SerializeField] private float speed;
+    
 
 
     private BatState currentState;
     [SerializeField] private Animator animator;
     private bool isMove = false;
+
+    [SerializeField] private float attackRange;
+    ObjectPool pool;
+    Transform muzzelePoint;
+    [SerializeField] private Transform muzzlePoint;
+    private float bulletSpeed;
+    private float bulletLifeTime;
+
 
     void Start()
     {

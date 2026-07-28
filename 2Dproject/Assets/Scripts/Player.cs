@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,8 +12,8 @@ public class Player : MonoBehaviour
     float _jumpforce = 6.5f;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
-    bool _isJumping = false;
-    public Vector2 _inputVec;
+    [SerializeField] bool _isJumping = false;
+    [SerializeField] public Vector2 _inputVec;
     private Color originColor;
     Vector3 offSet;
 
@@ -34,9 +36,69 @@ public class Player : MonoBehaviour
         jumpAction = GetComponent<PlayerInput>().actions["Jump"];
     }
 
+    [SerializeField] bool _isGrounded;
+    [SerializeField] GameObject ground;
+    [SerializeField] Transform groundcheck;
+
+    [SerializeField] private float coyoteTime;
+    [SerializeField] private float coyoteTimer;
+    [SerializeField] private float jumpBufferTime;
+    [SerializeField] private float jumpBufferTimer;
+
+    [SerializeField] private PhysicsMaterial2D physicsMaterial;
+
+    [SerializeField] bool _isWall;
+    [SerializeField] GameObject Wall;
+    [SerializeField] Transform Wallcheck;
+    [SerializeField] LayerMask grounded;
+    [SerializeField] LayerMask player;
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
+        }
+
+
+        _isGrounded = Physics2D.OverlapCircle(groundcheck.position, 0.2f, ground.layer);
+        _isWall = Physics2D.OverlapCircle(Wallcheck.position, 0.2f, Wall.layer);
+        if(_isWall)
+        {
+            
+        }
+
+        // 코요테 타임
+        if (_isGrounded)
+        {
+            coyoteTimer = coyoteTime;
+        }
+        else
+        {
+            coyoteTimer -= Time.deltaTime;
+        }
+
+        // 점프 버퍼
+        if (jumpAction.IsPressed())
+        {
+            jumpBufferTimer = jumpBufferTime;
+        }
+        else
+        {
+            jumpBufferTimer -= Time.deltaTime;
+        }
+
+        if(coyoteTimer > 0f && jumpBufferTimer > 0f)
+        {
+            Debug.Log("Jump!");
+            _rigid.linearVelocity = new Vector2(_rigid.linearVelocity.x, 3.0f);
+            coyoteTimer = 0f;
+        }
+    }
+
     void FixedUpdate()
     {
         // 1. 수평 이동만 velocity에 직접 설정 (수직은 물리 엔진에 맡김)
+        
         _rigid.linearVelocity = new Vector2(_inputVec.x * _speed, _rigid.linearVelocity.y);
 
         // 2. 하강 시 낙하 가속
@@ -51,15 +113,36 @@ public class Player : MonoBehaviour
         }
     }
 
+    
+    public IEnumerator DownJump()
+    {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), true);
+        yield return new WaitForSeconds(0.5f);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ground"), false);
+    }
     void OnJump(InputValue value)
     {
+        if(_inputVec.y < 0f && value.isPressed)
+        {
+            Debug.Log("밑점");
+            StartCoroutine(DownJump());
+        }
+        
 
+        if (value.isPressed && _isGrounded)
+        {
+            Debug.Log("_isGrounded pressed");
+            //_rigid.linearVelocity = new Vector2(_rigid.linearVelocity.x, 3.0f);
+        }
+        
+        
         if (value.isPressed && !_isJumping)
         {
-            Debug.Log("Jump key pressed");
+            Debug.Log("_isJumping pressed");
             _isJumping = true;
-            _rigid.AddForce(Vector2.up * _jumpforce, ForceMode2D.Impulse);
+            //_rigid.AddForce(Vector2.up * _jumpforce, ForceMode2D.Impulse);
         }
+        
     }
 
 
