@@ -169,6 +169,7 @@ public class Player : MonoBehaviour
     void OnAttack()
     {
         Debug.Log("공격");
+        return;
         if (_sprite.flipX)
         {
             GameObject go = GameObject.Instantiate(_fire, transform.position - offSet, Quaternion.identity);
@@ -179,6 +180,11 @@ public class Player : MonoBehaviour
             GameObject.Instantiate(_fire, transform.position + offSet, Quaternion.identity);
         }
             
+    }
+
+    public void TakeDamage()
+    {
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

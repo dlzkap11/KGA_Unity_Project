@@ -61,8 +61,22 @@ public class Bat : MonoBehaviour
         animator.SetFloat("OnMove", 0f);
     }
 
+
+    [SerializeField] GameObject _fire;
     void OnMove()
     {
+        float direction = player.position.x - transform.position.x;
+
+        if (direction != 0)
+            spriteRenderer.flipX = direction < 0;
+
+        if (spriteRenderer.flipX)
+            GameObject.Instantiate(_fire, transform.position - new Vector3(0.3f, 0f, 0f), Quaternion.identity);
+        else
+            GameObject.Instantiate(_fire, transform.position + new Vector3(0.3f, 0f, 0f), Quaternion.identity);
+
+        animator.SetFloat("OnMove", 1f);
+        /*
         isMove = true;
         transform.position = Vector2.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
 
@@ -74,5 +88,6 @@ public class Bat : MonoBehaviour
 
         //animator.Play(MoveHash);
         animator.SetFloat("OnMove", 1f);
+        */
     }
 }
