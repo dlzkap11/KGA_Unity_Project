@@ -153,12 +153,12 @@ public class Player : MonoBehaviour
         if (_inputVec.x > 0)
         {
             _animator.Play("Move");
-            _sprite.flipX = false;
+            _sprite.flipX = true;
         }
         else if (_inputVec.x < 0)
         {
             _animator.Play("Move");
-            _sprite.flipX = true;
+            _sprite.flipX = false;
         }
         else
         {
