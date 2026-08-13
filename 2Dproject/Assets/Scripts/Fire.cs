@@ -13,7 +13,7 @@ public class Fire : MonoBehaviour
     {
         speed = 1.0f;
     }
-
+    
     void Start()
     {
         go = GameObject.FindWithTag("Player");
@@ -26,8 +26,9 @@ public class Fire : MonoBehaviour
         if (collision.CompareTag("Player"))
             return;
 
-        if(collision.CompareTag("Enemy"))
-            Destroy(collision.gameObject);
+        if (collision.CompareTag("Enemy"))
+            return;
+            //Destroy(collision.gameObject);
         Destroy(gameObject);
 
     }
