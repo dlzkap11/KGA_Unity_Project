@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using Unity.Behavior;
 using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,6 +7,10 @@ using UnityEngine.UIElements;
 
 public class EnemyChaser : MonoBehaviour
 {
+
+    private BehaviorGraph bg;
+
+
     [SerializeField] private Transform target;
     [SerializeField] private float detectRange;
     //[SerializeField] private float patroDis;
@@ -49,6 +54,7 @@ public class EnemyChaser : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.stoppingDistance = atkRange;
         stayTimer = patrolCooldown;
+        bg = GetComponent<BehaviorGraph>();
     }
 
     void Start()
@@ -59,6 +65,7 @@ public class EnemyChaser : MonoBehaviour
 
     private bool IsInViewAngle()
     {
+
         // 내 위치에서 타겟으로의 방향
         Vector3 dirToTarget = (target.position - transform.position).normalized;
 
@@ -116,7 +123,6 @@ public class EnemyChaser : MonoBehaviour
 
     }
 
-
     void Update()
     {
         if (target == null)
@@ -130,12 +136,16 @@ public class EnemyChaser : MonoBehaviour
         // 2.충분히 거리가 가까운 지
         // 3.내 시야 각에 들어와 있는지
         // 4.기둥 뒤에 공간이 있어요
+
+        // 소리 감지 기능
+        // 감지
         if (!isLook && dis <= detectRange && IsInViewAngle() && HasLineOfSight())
         {
             Debug.Log("감지!");
             isLook = true;
         }
 
+        // 포기
         if(isLook && dis >= giveUpRange)
         {
             Debug.Log("추적 포기!");
@@ -145,27 +155,36 @@ public class EnemyChaser : MonoBehaviour
              // 원래 상태로 가기
         }
 
+        // 순찰
         if (!isLook)
         {
             Patrol();
             return;
         }
 
-        if(dis > atkRange)
+        // 지원 요청 기능
+
+        // 엄폐기능
+        if (dis > atkRange)
         {
+            // 추적
             agent.isStopped = false;
             agent.SetDestination(target.position);
         }
+        
         else
         {
+            // 공격
             agent.isStopped = true;
             LookAtTarget();
             
             attackTimer -= Time.deltaTime;
 
+            
             if(attackTimer <= 0f)
             {
                 Attack();
+                // 탄약 체크 기능
                 attackTimer = attackCooldown;
                 i = 0;
             }
@@ -215,19 +234,11 @@ public class EnemyChaser : MonoBehaviour
                 i++;
             }
         }
-        
-        
-        
-
-
     }
 
 
     private void OnDrawGizmos()
     {
-
-        
-
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, detectRange);
 
