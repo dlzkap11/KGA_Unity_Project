@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float gravity = -20f;
 
     private CharacterController controller;
-    private Vector3 verticalVelocity;
+    [SerializeField] private Vector3 verticalVelocity;
 
     private void Awake()
     {
