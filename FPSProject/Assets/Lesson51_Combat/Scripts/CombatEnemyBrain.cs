@@ -19,15 +19,14 @@ public class CombatEnemyBrain : MonoBehaviour
     [SerializeField] private Transform target; // 비워두면 Awake에서 Player 태그 자동 검색
 
     [Header("판정 거리")]
-    [SerializeField] private float detectionRange;    // 이 거리 안이면 추적 (데모용 단순 거리 감지)
-    [SerializeField] private float attackRange;      // 이 거리 안이면 멈춰서 노려봄 (실제 공격은 EnemyAttacker의 Trigger가)
+    [SerializeField] private float detectionRange = 10f;    // 이 거리 안이면 추적 (데모용 단순 거리 감지)
+    [SerializeField] private float attackRange = 2.2f;      // 이 거리 안이면 멈춰서 노려봄 (실제 공격은 EnemyAttacker의 Trigger가)
     [SerializeField] private float arrivalThreshold = 0.5f; // 순찰 도착 판정 여유
 
     [Header("순찰 설정 (49차시 패턴 재사용)")]
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField] private float patrolWaitTime = 2f;
 
-    [SerializeField] private FPSEnemyData enemyData;
     private NavMeshAgent navAgent;
     private Health health;      // 판정 맨 위의 IsDead 가드용
     private int patrolIndex;
@@ -37,9 +36,6 @@ public class CombatEnemyBrain : MonoBehaviour
     {
         navAgent = GetComponent<NavMeshAgent>();
         health = GetComponent<Health>();
-
-        detectionRange = enemyData.sightRange;
-        attackRange = enemyData.attackRange;
 
         if (target == null)
         {
