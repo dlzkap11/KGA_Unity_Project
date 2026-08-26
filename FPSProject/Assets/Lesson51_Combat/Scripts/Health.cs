@@ -16,7 +16,7 @@ using UnityEngine;
 public class Health : MonoBehaviour, IDamageable
 {
     [Header("체력 설정")]
-    [SerializeField] private int maxHealth = 100;   // Player 100 / Enemy 30 — 같은 스크립트, 값만 다르게
+    [SerializeField] public int maxHealth = 100;   // Player 100 / Enemy 30 — 같은 스크립트, 값만 다르게
 
     // ── 애니메이션 확장 자리 (지금은 캡슐이라 미사용 — 모델을 붙일 때 주석 해제) ──
     // [SerializeField] private Animator animator; // "Hit"/"Die" 트리거를 가진 Animator 연결
@@ -33,7 +33,7 @@ public class Health : MonoBehaviour, IDamageable
     public event Action<int, int> OnDamaged;   // (현재 체력, 최대 체력) — "나 맞았어" 방송
     public event Action OnDied;                // "나 죽었어" 방송
 
-    private int currentHealth;
+    public int currentHealth;
     private bool isDead; // 중복 사망 방지 가드 — "죽음은 사건이 아니라 상태다"
 
     /// <summary>밖에서는 읽기만 — 실습 레벨 1에서 적 두뇌 판정 맨 위에 쓰는 값.</summary>

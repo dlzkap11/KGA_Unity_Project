@@ -1,3 +1,4 @@
+using System.Xml.Schema;
 using UnityEngine;
 
 /// <summary>
@@ -16,6 +17,9 @@ using UnityEngine;
 /// </summary>
 public class FpsShooter : MonoBehaviour
 {
+    [SerializeField] AmmoSystem ammo;
+    [SerializeField] ParticleSystem muzzleFlash;
+    [SerializeField] ParticleSystem baseHitEffect;
     [Header("사격 설정")]
     [SerializeField] private Camera fpsCamera;        // 1인칭 카메라 (비워두면 Camera.main)
     [SerializeField] private int damage = 10;
@@ -35,10 +39,19 @@ public class FpsShooter : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ammo.Reloding();
+        }
+
+
+
         if (!Input.GetMouseButtonDown(0))
         {
             return;
         }
+        ammo.Fire();
+        muzzleFlash.Play();
 
         // ★ 오늘 고친 딱 한 줄 — 화면 클릭 좌표 대신 "카메라 정면" 광선
         //   (51차시: fpsCamera.ScreenPointToRay(Input.mousePosition))
@@ -47,6 +60,19 @@ public class FpsShooter : MonoBehaviour
         // 여기서부터는 51차시와 한 글자도 다르지 않다
         if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, hitMask))
         {
+            
+
+            HitEffect hitEffect = hit.collider.GetComponent<HitEffect>();
+            if(hitEffect != null)
+            {
+                hitEffect.TakeHit(hit.point, hit.normal);
+            }
+            else
+            {
+                ParticleSystem hits = Instantiate(baseHitEffect, hit.point, Quaternion.identity);
+                hits.transform.forward = hit.normal;
+            }
+
             IDamageable damageable = hit.collider.GetComponent<IDamageable>();
             if (damageable != null)
             {
