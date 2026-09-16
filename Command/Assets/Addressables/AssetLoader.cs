@@ -18,6 +18,9 @@ public class AssetLoader : MonoBehaviour
         // 반환
         Addressables.ReleaseInstance(player);
 
+
+        Addressables.ResourceManager.
+
         // 동기 - 비동기가 익숙하지않으면 이렇게 = 권장하는 방식은 아님
         //player = Addressables.LoadAssetAsync<GameObject>("Player").WaitForCompletion();
     }
